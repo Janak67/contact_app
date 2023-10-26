@@ -16,19 +16,23 @@ class _ContactScreenState extends State<ContactScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Calculator App"),
+          actions: [
+            Consumer<ThemeProvider>(
+              builder: (context, value1, child) => Switch(
+                value: value1.islight,
+                onChanged: (value) {
+                  value1.changeTheme();
+                },
+              ),
+            ),
+          ],
         ),
         body: Center(
           child: Column(
             children: [
-              Text("Hello", style: Theme.of(context).textTheme.titleLarge,),
-              Consumer<ThemeProvider>(
-                builder: (context, value1, child) => Switch(
-                  value: value1.islight,
-                  onChanged: (value) {
-
-                    value1.changeTheme();
-                  },
-                ),
+              Text(
+                "Hello",
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
           ),
