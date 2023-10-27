@@ -37,6 +37,12 @@ class _ContactScreenState extends State<ContactScreen> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'addContact');
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
