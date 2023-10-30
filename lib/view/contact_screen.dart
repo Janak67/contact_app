@@ -31,7 +31,7 @@ class _ContactScreenState extends State<ContactScreen> {
           child: Column(
             children: [
               Text(
-                "Hello",
+                "",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
