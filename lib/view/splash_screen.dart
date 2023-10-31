@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void createdata() async {
     ShareHelper shr = ShareHelper();
-    await shr.getIntroStatus();
+    status = await shr.getIntroStatus();
   }
 
   @override
@@ -27,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.pushReplacementNamed(context,  status==true || status==null? 'intro':'contact');
+        Navigator.pushReplacementNamed(
+            context, status == false || status == null ? 'intro' : 'contact');
       },
     );
     return SafeArea(

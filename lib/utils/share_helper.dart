@@ -11,4 +11,15 @@ class ShareHelper {
     bool? status = await shr.getBool('intro');
     return status;
   }
+
+  void setTheme(bool isTheme) async {
+    SharedPreferences shr = await SharedPreferences.getInstance();
+    shr.setBool('theme', true);
+  }
+
+  Future<bool?> getTheme() async {
+    SharedPreferences shr = await SharedPreferences.getInstance();
+    bool? isTheme = await shr.getBool('theme');
+    return isTheme;
+  }
 }

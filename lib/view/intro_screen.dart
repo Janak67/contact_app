@@ -18,19 +18,22 @@ class _IntroScreenState extends State<IntroScreen> {
           pages: [
             PageViewModel(
               title: "Title of introduction page",
-              body: "Welcome to the app! This is a description of how it works.",
+              body:
+                  "Welcome to the app! This is a description of how it works.",
             ),
             PageViewModel(
               title: "Title of introduction page",
-              body: "Welcome to the app! This is a description of how it works.",
+              body:
+                  "Welcome to the app! This is a description of how it works.",
             ),
             PageViewModel(
               title: "Title of introduction page",
-              body: "Welcome to the app! This is a description of how it works.",
+              body:
+                  "Welcome to the app! This is a description of how it works.",
             ),
           ],
           showDoneButton: true,
-          onDone: (){
+          onDone: () {
             ShareHelper shr = ShareHelper();
             shr.setIntroStatus();
             Navigator.pushReplacementNamed(context, 'contact');

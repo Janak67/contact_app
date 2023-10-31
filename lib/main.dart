@@ -17,11 +17,14 @@ void main() {
         ),
       ],
       child: Consumer<ThemeProvider>(
-        builder: (context, value, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: value.islight ? lightTheme : darkTheme,
-          routes: screen_routes,
-        ),
+        builder: (context, value, child) {
+          value.changeTheme();
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: value.islight ? lightTheme : darkTheme,
+            routes: screen_routes,
+          );
+        },
       ),
     ),
   );

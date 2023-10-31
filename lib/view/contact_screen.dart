@@ -1,4 +1,5 @@
 import 'package:contact_app/provider/theme_provider.dart';
+import 'package:contact_app/utils/share_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,8 @@ class _ContactScreenState extends State<ContactScreen> {
               builder: (context, value1, child) => Switch(
                 value: value1.islight,
                 onChanged: (value) {
+                  ShareHelper shr = ShareHelper();
+                  shr.setTheme(false);
                   value1.changeTheme();
                 },
               ),
