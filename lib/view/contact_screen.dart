@@ -3,6 +3,8 @@ import 'package:contact_app/utils/share_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/contact_provider.dart';
+
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);
 
@@ -11,8 +13,13 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
+  ContactProvider? providerw;
+  ContactProvider? providerr;
+
   @override
   Widget build(BuildContext context) {
+    providerw = context.watch<ContactProvider>();
+    providerr = context.read<ContactProvider>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -30,15 +37,35 @@ class _ContactScreenState extends State<ContactScreen> {
             ),
           ],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Text(
-                "",
-                style: Theme.of(context).textTheme.titleLarge,
+        body: ListView.builder(
+          itemCount: providerw!.contactList.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.10,
+                width: MediaQuery.of(context).size.width * 0.10,
+                decoration: BoxDecoration(
+                    color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.18,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.deepPurple),
+                    ),
+                    Column(
+                      children: [
+                        Text("${providerr!.contactList[index].name}"),
+                        Text("${providerr!.contactList[index].contact}"),
+                        Text("${providerr!.contactList[index].email}"),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ],
-          ),
+            );
+          },
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

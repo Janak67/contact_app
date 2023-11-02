@@ -1,3 +1,4 @@
+import 'package:contact_app/model/contact_model.dart';
 import 'package:contact_app/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,53 +11,85 @@ class AddContactScreen extends StatefulWidget {
 }
 
 class _AddContactScreenState extends State<AddContactScreen> {
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtContact = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+  ContactProvider? providerw;
+  ContactProvider? providerr;
+
   @override
   Widget build(BuildContext context) {
+    providerw = context.watch<ContactProvider>();
+    providerr = context.read<ContactProvider>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Add Contact"),
         ),
-        body: Consumer<ContactProvider>(
-          builder: (context, value, child) => Theme(
-            data: ThemeData(
-              colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: Colors.grey,
-                background: Colors.grey,
-                secondary: Colors.green,
-              ),
-            ),
-            child: Stepper(
-              currentStep: value.stepIndex,
-              onStepContinue: () {
-                value.nextStep();
-              },
-              onStepCancel: () {
-                value.cancelStep();
-              },
-              steps: const [
-                Step(title: Text("Add Image"), content: Text("Image")),
-                Step(
-                    title: Text("Name of Contact"),
-                    content: TextField(
-                      decoration: InputDecoration(border: OutlineInputBorder(),),
-                      keyboardType: TextInputType.name,
-                    )),
-                Step(
-                  title: Text("Contact Number"),
-                  content: TextField(
-                    decoration: InputDecoration(border: OutlineInputBorder(),),
-                    keyboardType: TextInputType.number,
-                  ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Theme(
+                data: ThemeData(
+                  colorScheme: Theme.of(context).colorScheme.copyWith(
+                        primary: Colors.grey,
+                        background: Colors.grey,
+                        secondary: Colors.green,
+                      ),
                 ),
-                Step(
-                    title: Text("Contact Email"),
-                    content: TextField(
-                      decoration: InputDecoration(border: OutlineInputBorder(),),
-                      keyboardType: TextInputType.emailAddress,
-                    )),
-              ],
-            ),
+                child: Stepper(
+                  currentStep: providerw!.stepIndex,
+                  onStepContinue: () {
+                    providerw!.nextStep();
+                  },
+                  onStepCancel: () {
+                    providerw!.cancelStep();
+                  },
+                  steps: [
+                    const Step(title: Text("Add Image"), content: Text("Image")),
+                    Step(
+                        title: const Text("Name of Contact"),
+                        content: TextField(
+                          controller: txtName,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.name,
+                        )),
+                    Step(
+                      title: const Text("Contact Number"),
+                      content: TextField(
+                        controller: txtContact,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                    Step(
+                        title: const Text("Contact Email"),
+                        content: TextField(
+                          controller: txtEmail,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        )),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    ContactModel cm = ContactModel(
+                        name: txtName.text,
+                        contact: txtContact.text,
+                        email: txtEmail.text,
+                        image: providerw!.imagepath);
+                    providerr!.addContact(cm);
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Submit"))
+            ],
           ),
         ),
       ),
