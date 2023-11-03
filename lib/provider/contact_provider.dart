@@ -5,6 +5,7 @@ import '../model/contact_model.dart';
 class ContactProvider with ChangeNotifier {
   int stepIndex = 0;
   String? imagepath;
+  String? path;
 
   List<ContactModel> contactList = [];
 
@@ -19,6 +20,11 @@ class ContactProvider with ChangeNotifier {
     if (stepIndex > 0) {
       stepIndex--;
     }
+    notifyListeners();
+  }
+
+  void updateImagePath(String newpath){
+    path = newpath;
     notifyListeners();
   }
 

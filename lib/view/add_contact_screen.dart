@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:contact_app/model/contact_model.dart';
 import 'package:contact_app/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddContactScreen extends StatefulWidget {
@@ -46,7 +49,49 @@ class _AddContactScreenState extends State<AddContactScreen> {
                     providerw!.cancelStep();
                   },
                   steps: [
-                    const Step(title: Text("Add Image"), content: Text("Image")),
+                    Step(
+                      title: const Text("Image"),
+                      content: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                alignment: Alignment.bottomCenter,
+                                title: const Text("Edit Profile Picture"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () async {
+                                        ImagePicker picker = ImagePicker();
+                                        XFile? image = await picker.pickImage(
+                                            source: ImageSource.gallery);
+                                        providerr!.updateImagePath(image!.path);
+                                      },
+                                      child: const Text("Choose Photo")),
+                                  TextButton(
+                                      onPressed: () async {
+                                        ImagePicker picker = ImagePicker();
+                                        XFile? image = await picker.pickImage(
+                                            source: ImageSource.camera);
+                                        providerr!.updateImagePath(image!.path);
+                                      },
+                                      child: const Text("Take Photo")),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Consumer<ContactProvider>(
+                          builder: (context, value, child) => CircleAvatar(
+                            backgroundColor: Colors.black,
+                            backgroundImage: value.path != null
+                                ? FileImage(File(value.path!))
+                                : null,
+                            radius: 60,
+                          ),
+                        ),
+                      ),
+                    ),
                     Step(
                         title: const Text("Name of Contact"),
                         content: TextField(
