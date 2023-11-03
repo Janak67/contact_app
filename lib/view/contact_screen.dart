@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:contact_app/provider/theme_provider.dart';
@@ -60,6 +61,13 @@ class _ContactScreenState extends State<ContactScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
+                      providerw!.contactList[index].image != null?
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: FileImage(File(
+                            "${providerw!.contactList[index].image}"),
+                        ),
+                      ):
                       Container(
                         height: MediaQuery.of(context).size.height * 0.18,
                         width: MediaQuery.of(context).size.width * 0.18,
@@ -68,10 +76,9 @@ class _ContactScreenState extends State<ContactScreen> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "${providerw!.contactList[index].name!.isNotEmpty ?
-                            providerw!.contactList[index].name!.substring(0, 1).toUpperCase() : 0}",
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
+                                  "${providerw!.contactList[index].name!.substring(0, 1)}",
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
                         ),
                       ),
                       const SizedBox(
@@ -85,7 +92,6 @@ class _ContactScreenState extends State<ContactScreen> {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text("${providerr!.contactList[index].contact}"),
-                          Text("${providerr!.contactList[index].email}"),
                         ],
                       ),
                     ],

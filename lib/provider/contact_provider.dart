@@ -4,7 +4,6 @@ import '../model/contact_model.dart';
 
 class ContactProvider with ChangeNotifier {
   int stepIndex = 0;
-  String? imagepath;
   String? path;
 
   List<ContactModel> contactList = [];
