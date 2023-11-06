@@ -5,6 +5,7 @@ import '../model/contact_model.dart';
 class ContactProvider with ChangeNotifier {
   int stepIndex = 0;
   String? path;
+  int? infoIndex;
 
   List<ContactModel> contactList = [];
 
@@ -33,6 +34,11 @@ class ContactProvider with ChangeNotifier {
   }
   void clean(){
     stepIndex = 0;
+    notifyListeners();
+  }
+
+  void deleteContact(){
+    contactList.removeAt(infoIndex!);
     notifyListeners();
   }
 }

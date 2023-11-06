@@ -20,6 +20,7 @@ void main() {
         builder: (context, value, child) {
           value.changeTheme();
           return MaterialApp(
+            title: 'Contact',
             debugShowCheckedModeBanner: false,
             theme: value.islight ? lightTheme : darkTheme,
             routes: screen_routes,

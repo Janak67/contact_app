@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:contact_app/provider/contact_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/contact_model.dart';
 
@@ -13,8 +15,12 @@ class ContactInfoScreen extends StatefulWidget {
 }
 
 class _ContactInfoScreenState extends State<ContactInfoScreen> {
+  ContactProvider? providerw;
+  ContactProvider? providerr;
   @override
   Widget build(BuildContext context) {
+    providerw = context.watch<ContactProvider>();
+    providerr = context.read<ContactProvider>();
     ContactModel c1 =
         ModalRoute.of(context)!.settings.arguments as ContactModel;
     return SafeArea(
@@ -23,7 +29,10 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
           title: const Text("Contact Info"),
           actions: [
             IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
+            IconButton(onPressed: (){
+              providerr!.deleteContact();
+              Navigator.pop(context);
+            }, icon: const Icon(Icons.delete)),
           ],
         ),
         body: Column(
@@ -85,7 +94,6 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                     ],
                   ),
                 ),
-                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
@@ -116,7 +124,6 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                     ],
                   ),
                 ),
-                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
@@ -141,7 +148,6 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                     ],
                   ),
                 ),
-                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
@@ -166,7 +172,6 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                     ],
                   ),
                 ),
-                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
