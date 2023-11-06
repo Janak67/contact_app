@@ -132,6 +132,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                         image: providerr!.path);
                     providerr!.addContact(cm);
                     Navigator.pop(context);
+                    providerr!.clean();
                   },
                   child: const Text("Submit"))
             ],

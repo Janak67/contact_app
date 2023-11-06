@@ -31,4 +31,8 @@ class ContactProvider with ChangeNotifier {
     contactList.add(cm);
     notifyListeners();
   }
+  void clean(){
+    stepIndex = 0;
+    notifyListeners();
+  }
 }

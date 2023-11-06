@@ -1,4 +1,5 @@
 import 'package:contact_app/view/add_contact_screen.dart';
+import 'package:contact_app/view/contact_info_screen.dart';
 import 'package:contact_app/view/contact_screen.dart';
 import 'package:contact_app/view/intro_screen.dart';
 import 'package:contact_app/view/splash_screen.dart';
@@ -9,4 +10,5 @@ Map<String, WidgetBuilder> screen_routes = {
   'intro': (context) => const IntroScreen(),
   'contact': (context) => const ContactScreen(),
   'addContact': (context) => const AddContactScreen(),
+  'contactInfo':(context) => const ContactInfoScreen(),
 };

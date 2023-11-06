@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../model/contact_model.dart';
 
 class ContactInfoScreen extends StatefulWidget {
   const ContactInfoScreen({Key? key}) : super(key: key);
@@ -11,8 +15,187 @@ class ContactInfoScreen extends StatefulWidget {
 class _ContactInfoScreenState extends State<ContactInfoScreen> {
   @override
   Widget build(BuildContext context) {
+    ContactModel c1 =
+        ModalRoute.of(context)!.settings.arguments as ContactModel;
     return SafeArea(
-      child: Scaffold(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Contact Info"),
+          actions: [
+            IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),
+            IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
+          ],
+        ),
+        body: Column(
+          children: [
+            const SizedBox(height: 20,),
+            c1.image == null
+                ? CircleAvatar(
+                    radius: 70,
+                    child: Text("${c1.name?.substring(0, 1).toUpperCase()}",style: Theme.of(context).textTheme.titleLarge),
+                  )
+                : CircleAvatar(
+                    radius: 70,
+                    backgroundImage: FileImage(File("${c1.image}")),
+                  ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "${c1.name}",
+                  // "Name: ${c1.name}",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
+            const Divider(),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "+91 ${c1.contact}",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Text("Mobile | India")
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.green),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.call),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${c1.email}",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Text("Email")
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.blueGrey),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.message),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Text(
+                        "Video Call",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.green),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.video_call),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Text(
+                        "WhatsApp Call",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.green),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.call_sharp),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Text(
+                        "Gujarat",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.redAccent),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.location_on),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

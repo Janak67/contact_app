@@ -51,50 +51,53 @@ class _ContactScreenState extends State<ContactScreen> {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.10,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      providerw!.contactList[index].image != null?
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: FileImage(File(
-                            "${providerw!.contactList[index].image}"),
-                        ),
-                      ):
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 0.18,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: getRandomColor()),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                                  "${providerw!.contactList[index].name!.substring(0, 1)}",
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${providerr!.contactList[index].name}",
-                            style: Theme.of(context).textTheme.titleMedium,
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, 'contactInfo',arguments: providerr!.contactList[index]);
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.10,
+                  width: MediaQuery.of(context).size.width * 0.10,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        providerw!.contactList[index].image != null?
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundImage: FileImage(File(
+                              "${providerw!.contactList[index].image}"),
                           ),
-                          Text("${providerr!.contactList[index].contact}"),
-                        ],
-                      ),
-                    ],
+                        ):
+                        Align(
+                          alignment: Alignment.center,
+                          child: CircleAvatar(
+                            radius: 30,
+                            child: Text(
+                                    "${providerw!.contactList[index].name!.substring(0, 1)}",
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${providerr!.contactList[index].name}",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text("${providerr!.contactList[index].contact}"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
