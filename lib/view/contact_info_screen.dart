@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:contact_app/provider/contact_provider.dart';
+import 'package:contact_app/widget/alert_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class ContactInfoScreen extends StatefulWidget {
 class _ContactInfoScreenState extends State<ContactInfoScreen> {
   ContactProvider? providerw;
   ContactProvider? providerr;
+
   @override
   Widget build(BuildContext context) {
     providerw = context.watch<ContactProvider>();
@@ -28,20 +30,29 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
         appBar: AppBar(
           title: const Text("Contact Info"),
           actions: [
-            IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),
-            IconButton(onPressed: (){
-              providerr!.deleteContact();
-              Navigator.pop(context);
-            }, icon: const Icon(Icons.delete)),
+            IconButton(
+                onPressed: () {
+                  updateWidget(context, c1);
+                },
+                icon: const Icon(Icons.edit)),
+            IconButton(
+                onPressed: () {
+                  providerr!.deleteContact();
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete)),
           ],
         ),
         body: Column(
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             c1.image == null
                 ? CircleAvatar(
                     radius: 70,
-                    child: Text("${c1.name?.substring(0, 1).toUpperCase()}",style: Theme.of(context).textTheme.titleLarge),
+                    child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
+                        style: Theme.of(context).textTheme.titleLarge),
                   )
                 : CircleAvatar(
                     radius: 70,
@@ -68,7 +79,9 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                   padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

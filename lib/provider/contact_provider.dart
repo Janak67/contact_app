@@ -41,4 +41,9 @@ class ContactProvider with ChangeNotifier {
     contactList.removeAt(infoIndex!);
     notifyListeners();
   }
+
+  void editContact(ContactModel c1){
+    contactList.add(c1);
+    notifyListeners();
+  }
 }
