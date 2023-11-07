@@ -43,7 +43,11 @@ class ContactProvider with ChangeNotifier {
   }
 
   void editContact(ContactModel c1){
-    contactList.add(c1);
+    contactList[infoIndex!] = c1;
+    notifyListeners();
+  }
+  void storeIndex(int index){
+    infoIndex = index;
     notifyListeners();
   }
 }

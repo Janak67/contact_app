@@ -5,6 +5,7 @@ import 'package:contact_app/widget/alert_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/contact_model.dart';
 
@@ -43,175 +44,180 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                 icon: const Icon(Icons.delete)),
           ],
         ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            c1.image == null
-                ? CircleAvatar(
-                    radius: 70,
-                    child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
-                        style: Theme.of(context).textTheme.titleLarge),
-                  )
-                : CircleAvatar(
-                    radius: 70,
-                    backgroundImage: FileImage(File("${c1.image}")),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              c1.image == null
+                  ? CircleAvatar(
+                      radius: 70,
+                      child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
+                          style: Theme.of(context).textTheme.titleLarge),
+                    )
+                  : CircleAvatar(
+                      radius: 70,
+                      backgroundImage: FileImage(File("${c1.image}")),
+                    ),
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "${c1.name}",
+                    // "Name: ${c1.name}",
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-            const SizedBox(
-              height: 10,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  "${c1.name}",
-                  // "Name: ${c1.name}",
-                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
-            ),
-            const Divider(),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "+91 ${c1.contact}",
-                            style: Theme.of(context).textTheme.titleMedium,
+              const Divider(),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "+91 ${c1.contact}",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const Text("Mobile | India")
+                          ],
+                        ),
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                          child: IconButton(
+                            onPressed: () async {
+                              Uri uri = Uri.parse("tel: +91${c1.contact}");
+                              await launchUrl(uri);
+                            },
+                            icon: const Icon(Icons.call),
+                            color: Colors.white,
                           ),
-                          const Text("Mobile | India")
-                        ],
-                      ),
-                      const Spacer(),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.call),
-                          color: Colors.white,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${c1.email}",
-                            style: Theme.of(context).textTheme.titleMedium,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${c1.email}",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const Text("Email")
+                          ],
+                        ),
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.blueGrey),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.message),
+                            color: Colors.white,
                           ),
-                          const Text("Email")
-                        ],
-                      ),
-                      const Spacer(),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blueGrey),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.message),
-                          color: Colors.white,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Text(
-                        "Video Call",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const Spacer(),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.video_call),
-                          color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Text(
+                          "Video Call",
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Text(
-                        "WhatsApp Call",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const Spacer(),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.call_sharp),
-                          color: Colors.white,
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.video_call),
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Text(
-                        "Gujarat",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const Spacer(),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.redAccent),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.location_on),
-                          color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Text(
+                          "WhatsApp Call",
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                      ),
-                    ],
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.call_sharp),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Text(
+                          "Gujarat",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.redAccent),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.location_on),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

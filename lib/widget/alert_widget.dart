@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void updateWidget(BuildContext context,ContactModel c1) {
-  TextEditingController txtName = TextEditingController();
-  TextEditingController txtContact = TextEditingController();
-  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtName = TextEditingController(text: c1.name);
+  TextEditingController txtContact = TextEditingController(text: c1.contact);
+  TextEditingController txtEmail = TextEditingController(text: c1.email);
   showDialog(
     context: context,
     builder: (context) {
@@ -35,6 +35,7 @@ void updateWidget(BuildContext context,ContactModel c1) {
               c1.contact = txtContact.text;
               c1.email = txtEmail.text;
               context.read<ContactProvider>().editContact(c1);
+              Navigator.pop(context);
               Navigator.pop(context);
             },
             child:

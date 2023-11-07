@@ -148,6 +148,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                         contact: txtContact.text,
                         email: txtEmail.text,
                         image: providerr!.path);
+                    providerr!.path = "";
                     providerr!.addContact(cm);
                     Navigator.pop(context);
                     providerr!.clean();
