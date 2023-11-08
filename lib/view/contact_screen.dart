@@ -52,9 +52,10 @@ class _ContactScreenState extends State<ContactScreen> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   providerr!.storeIndex(index);
-                  Navigator.pushNamed(context, 'contactInfo',arguments: providerr!.contactList[index]);
+                  Navigator.pushNamed(context, 'contactInfo',
+                      arguments: providerr!.contactList[index]);
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.10,
@@ -66,23 +67,25 @@ class _ContactScreenState extends State<ContactScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        providerw!.contactList[index].image != null?
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: FileImage(File(
-                              "${providerw!.contactList[index].image}"),
-                          ),
-                        ):
-                        Align(
-                          alignment: Alignment.center,
-                          child: CircleAvatar(
-                            radius: 30,
-                            child: Text(
-                                    "${providerw!.contactList[index].name!.substring(0, 1)}",
-                                    style: Theme.of(context).textTheme.titleLarge,
+                        providerw!.contactList[index].image != null
+                            ? CircleAvatar(
+                                radius: 30,
+                                backgroundImage: FileImage(
+                                  File(
+                                      "${providerw!.contactList[index].image}"),
+                                ),
+                              )
+                            : Align(
+                                alignment: Alignment.center,
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  child: Text(
+                                    "${providerw!.contactList[index].name!.isNotEmpty ? providerw!.contactList[index].name!.substring(0, 1).toUpperCase() : 0}",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
-                          ),
-                        ),
+                                ),
+                              ),
                         const SizedBox(
                           width: 8,
                         ),

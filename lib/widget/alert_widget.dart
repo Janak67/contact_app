@@ -14,63 +14,65 @@ void updateWidget(BuildContext context, ContactModel c1) {
   showDialog(
     context: context,
     builder: (context) {
-      return AlertDialog(
-        title: const Text('Edit Contact'),
-        actions: [
-          InkWell(
-            onTap: () async {
-              ImagePicker picker = ImagePicker();
-              XFile? image =
-                  await picker.pickImage(source: ImageSource.gallery);
-              providerr!.updateImagePath(image!.path);
-            },
-            child: Align(
-              alignment: Alignment.center,
-              child: c1.image == null
-                  ? CircleAvatar(
-                      radius: 70,
-                      child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
-                          style: Theme.of(context).textTheme.titleLarge),
-                    )
-                  : CircleAvatar(
-                      radius: 50,
-                      backgroundImage: FileImage(File("${c1.image}")),
-                    ),
+      return SingleChildScrollView(
+        child: AlertDialog(
+          title: const Text('Edit Contact'),
+          actions: [
+            InkWell(
+              onTap: () async {
+                ImagePicker picker = ImagePicker();
+                XFile? image =
+                    await picker.pickImage(source: ImageSource.gallery);
+                providerr!.updateImagePath(image!.path);
+              },
+              child: Align(
+                alignment: Alignment.center,
+                child: c1.image == null
+                    ? CircleAvatar(
+                        radius: 70,
+                        child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
+                            style: Theme.of(context).textTheme.titleLarge),
+                      )
+                    : CircleAvatar(
+                        radius: 50,
+                        backgroundImage: FileImage(File("${c1.image}")),
+                      ),
+              ),
             ),
-          ),
-          TextField(
-            controller: txtName,
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Name'),
-          ),
-          TextField(
-            controller: txtContact,
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Contact'),
-          ),
-          TextField(
-            controller: txtEmail,
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Email'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ContactModel c1 = ContactModel();
-              c1.name = txtName.text;
-              c1.contact = txtContact.text;
-              c1.email = txtEmail.text;
-              c1.image = providerr!.path;
-              context.read<ContactProvider>().editContact(c1);
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-            child:
-                const Align(alignment: Alignment.center, child: Text('Update')),
-          ),
-        ],
+            TextField(
+              controller: txtName,
+              decoration: const InputDecoration(
+                  border: UnderlineInputBorder(), labelText: 'Name'),
+            ),
+            TextField(
+              controller: txtContact,
+              decoration: const InputDecoration(
+                  border: UnderlineInputBorder(), labelText: 'Contact'),
+            ),
+            TextField(
+              controller: txtEmail,
+              decoration: const InputDecoration(
+                  border: UnderlineInputBorder(), labelText: 'Email'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ContactModel cm = ContactModel(
+                    image: c1.image,
+                    email: txtEmail.text,
+                    contact: txtContact.text,
+                    name: txtName.text);
+                context.read<ContactProvider>().editContact(cm);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: const Align(
+                  alignment: Alignment.center, child: Text('Update')),
+            ),
+          ],
+        ),
       );
     },
   );

@@ -129,8 +129,11 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Colors.blueGrey),
                           child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.message),
+                            onPressed: () async {
+                              Uri uri = Uri.parse("mailto: ${c1.email}");
+                              await launchUrl(uri);
+                            },
+                            icon: const Icon(Icons.email),
                             color: Colors.white,
                           ),
                         ),
