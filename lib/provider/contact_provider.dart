@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../model/contact_model.dart';
 
@@ -23,7 +24,7 @@ class ContactProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateImagePath(String newpath){
+  void updateImagePath(String newpath) {
     path = newpath;
     notifyListeners();
   }
@@ -32,22 +33,30 @@ class ContactProvider with ChangeNotifier {
     contactList.add(cm);
     notifyListeners();
   }
-  void clean(){
+
+  void clean() {
     stepIndex = 0;
     notifyListeners();
   }
 
-  void deleteContact(){
+  void deleteContact() {
     contactList.removeAt(infoIndex!);
     notifyListeners();
   }
 
-  void editContact(ContactModel c1){
+  void editContact(ContactModel c1) {
     contactList[infoIndex!] = c1;
     notifyListeners();
   }
-  void storeIndex(int index){
+
+  void storeIndex(int index) {
     infoIndex = index;
     notifyListeners();
+  }
+
+  Future<void> shareData(ContactModel c1) async {
+    Share.share("${c1.name}\n ${c1.contact}");
+    ShareResult result =
+        await Share.shareWithResult("");
   }
 }

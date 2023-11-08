@@ -32,16 +32,11 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
           title: const Text("Contact Info"),
           actions: [
             IconButton(
-                onPressed: () {
-                  updateWidget(context, c1);
-                },
-                icon: const Icon(Icons.edit)),
-            IconButton(
-                onPressed: () {
-                  providerr!.deleteContact();
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.delete)),
+              onPressed: () {
+                providerr!.shareData(c1);
+              },
+              icon: const Icon(Icons.share, color: Colors.white),
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -213,6 +208,26 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(height: 170,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          updateWidget(context, c1);
+                        },
+                        icon: const Icon(Icons.edit,
+                            color: Colors.black, size: 30),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            providerr!.deleteContact();
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.delete,
+                              color: Colors.black, size: 30)),
+                    ],
                   ),
                 ],
               ),
