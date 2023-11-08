@@ -26,10 +26,16 @@ void updateWidget(BuildContext context, ContactModel c1) {
             },
             child: Align(
               alignment: Alignment.center,
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: FileImage(File("${c1.image}")),
-              ),
+              child: c1.image == null
+                  ? CircleAvatar(
+                      radius: 70,
+                      child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
+                          style: Theme.of(context).textTheme.titleLarge),
+                    )
+                  : CircleAvatar(
+                      radius: 50,
+                      backgroundImage: FileImage(File("${c1.image}")),
+                    ),
             ),
           ),
           TextField(
@@ -47,7 +53,9 @@ void updateWidget(BuildContext context, ContactModel c1) {
             decoration: const InputDecoration(
                 border: UnderlineInputBorder(), labelText: 'Email'),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
             onPressed: () {
               ContactModel c1 = ContactModel();
