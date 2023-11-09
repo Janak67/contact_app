@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:contact_app/provider/contact_provider.dart';
 import 'package:contact_app/widget/alert_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,9 +40,7 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               c1.image == null
                   ? CircleAvatar(
                       radius: 70,
@@ -55,9 +51,7 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                       radius: 70,
                       backgroundImage: FileImage(File("${c1.image}")),
                     ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.center,
                 child: Padding(
@@ -212,7 +206,7 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 170,),
+                  const SizedBox(height: 170),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -229,6 +223,13 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                             Navigator.pop(context);
                           },
                           icon: const Icon(Icons.delete,
+                              color: Colors.black, size: 30)),
+                      IconButton(
+                          onPressed: () {
+                            providerr!.hideContact();
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.remove_red_eye,
                               color: Colors.black, size: 30)),
                     ],
                   ),

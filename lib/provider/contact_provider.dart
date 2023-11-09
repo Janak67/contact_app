@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../model/contact_model.dart';
 
 class ContactProvider with ChangeNotifier {
@@ -9,6 +8,7 @@ class ContactProvider with ChangeNotifier {
   int? infoIndex;
 
   List<ContactModel> contactList = [];
+  List<ContactModel> hideContactList = [];
 
   void nextStep() {
     if (stepIndex < 3) {
@@ -24,7 +24,7 @@ class ContactProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateImagePath(String newpath) {
+  void updateImagePath(String? newpath) {
     path = newpath;
     notifyListeners();
   }
@@ -41,11 +41,13 @@ class ContactProvider with ChangeNotifier {
 
   void deleteContact() {
     contactList.removeAt(infoIndex!);
+    // hideContactList.removeAt(infoIndex!);
     notifyListeners();
   }
 
   void editContact(ContactModel c1) {
     contactList[infoIndex!] = c1;
+    // hideContactList[infoIndex!] = c1;
     notifyListeners();
   }
 
@@ -56,7 +58,13 @@ class ContactProvider with ChangeNotifier {
 
   Future<void> shareData(ContactModel c1) async {
     Share.share("${c1.name}\n ${c1.contact}");
-    ShareResult result =
-        await Share.shareWithResult("");
+    ShareResult result = await Share.shareWithResult("");
+  }
+
+  void hideContact() {
+    ContactModel hiddenContact = contactList[infoIndex!];
+    hideContactList.add(hiddenContact);
+    hideContactList.removeAt(infoIndex!);
+    notifyListeners();
   }
 }
