@@ -14,7 +14,7 @@ class ShareHelper {
 
   Future<void> setTheme(bool isTheme) async {
     SharedPreferences shr = await SharedPreferences.getInstance();
-    shr.setBool('theme', true);
+    shr.setBool('theme', isTheme);
   }
 
   Future<bool?> getTheme() async {

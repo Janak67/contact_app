@@ -225,12 +225,13 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                           icon: const Icon(Icons.delete,
                               color: Colors.black, size: 30)),
                       IconButton(
-                          onPressed: () {
-                            providerr!.hideContact();
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.remove_red_eye,
-                              color: Colors.black, size: 30)),
+                        onPressed: () {
+                          providerr!.hideContact();
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.remove_red_eye,
+                            color: Colors.black, size: 30),
+                      ),
                     ],
                   ),
                 ],

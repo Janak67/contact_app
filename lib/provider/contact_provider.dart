@@ -64,7 +64,7 @@ class ContactProvider with ChangeNotifier {
   void hideContact() {
     ContactModel hiddenContact = contactList[infoIndex!];
     hideContactList.add(hiddenContact);
-    hideContactList.removeAt(infoIndex!);
+    contactList.removeAt(infoIndex!);
     notifyListeners();
   }
 }

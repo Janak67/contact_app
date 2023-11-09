@@ -44,18 +44,17 @@ class _AddContactScreenState extends State<AddContactScreen> {
                 child: Stepper(
                   currentStep: providerw!.stepIndex,
                   onStepContinue: () {
-                    if (providerw!.stepIndex==1) {
-                      if(nameKey.currentState!.validate()){
+                    if (providerw!.stepIndex == 1) {
+                      if (nameKey.currentState!.validate()) {
                         providerw!.nextStep();
                       }
-                    }
-                    // else if(contactKey.currentState!.validate()){
-                    //   providerw!.nextStep();
-                    // }
-                    else{
+                    } else if (providerw!.stepIndex == 2) {
+                      if (contactKey.currentState!.validate()) {
+                        providerw!.nextStep();
+                      }
+                    } else {
                       providerw!.nextStep();
                     }
-                    // providerw!.nextStep();
                   },
                   onStepCancel: () {
                     providerw!.cancelStep();
@@ -117,7 +116,8 @@ class _AddContactScreenState extends State<AddContactScreen> {
                           },
                           controller: txtName,
                           decoration: const InputDecoration(
-                              border: UnderlineInputBorder(), labelText: 'Name'),
+                              border: UnderlineInputBorder(),
+                              labelText: 'Name'),
                           keyboardType: TextInputType.name,
                         ),
                       ),

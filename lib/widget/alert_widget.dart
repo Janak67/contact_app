@@ -27,15 +27,19 @@ void updateWidget(BuildContext context, ContactModel c1) {
               },
               child: Align(
                 alignment: Alignment.center,
-                child: c1.image == null
+                child: c1.image != null
+                    // || providerr!.path != null
                     ? CircleAvatar(
+                        radius: 50,
+                        backgroundImage: FileImage(File(
+                            // providerr!.path != null
+                            // ? "${providerr!.path}" :
+                        "${c1.image}")),
+                      )
+                    : CircleAvatar(
                         radius: 70,
                         child: Text("${c1.name?.substring(0, 1).toUpperCase()}",
                             style: Theme.of(context).textTheme.titleLarge),
-                      )
-                    : CircleAvatar(
-                        radius: 50,
-                        backgroundImage: FileImage(File("${c1.image}")),
                       ),
               ),
             ),
