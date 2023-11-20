@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:share_plus/share_plus.dart';
 import '../model/contact_model.dart';
 
@@ -6,6 +7,8 @@ class ContactProvider with ChangeNotifier {
   int stepIndex = 0;
   String? path;
   int? infoIndex;
+  bool isPrivate = false;
+  bool isLock = false;
 
   List<ContactModel> contactList = [];
   List<ContactModel> hideContactList = [];
@@ -40,14 +43,21 @@ class ContactProvider with ChangeNotifier {
   }
 
   void deleteContact() {
-    contactList.removeAt(infoIndex!);
-    // hideContactList.removeAt(infoIndex!);
+    if (isPrivate) {
+      hideContactList.removeAt(infoIndex!);
+    } else {
+      contactList.removeAt(infoIndex!);
+    }
+
     notifyListeners();
   }
 
   void editContact(ContactModel c1) {
-    contactList[infoIndex!] = c1;
-    // hideContactList[infoIndex!] = c1;
+    if (isPrivate) {
+      hideContactList[infoIndex!] = c1;
+    } else {
+      contactList[infoIndex!] = c1;
+    }
     notifyListeners();
   }
 
@@ -66,5 +76,27 @@ class ContactProvider with ChangeNotifier {
     hideContactList.add(hiddenContact);
     contactList.removeAt(infoIndex!);
     notifyListeners();
+  }
+  void unHideContact() {
+    ContactModel unHiddenContact = hideContactList[infoIndex!];
+    contactList.add(unHiddenContact);
+    hideContactList.removeAt(infoIndex!);
+    notifyListeners();
+  }
+
+  Future<bool?> bioMatrix() async {
+    LocalAuthentication auth = LocalAuthentication();
+    bool checkBioMatrixStatus = await auth.canCheckBiometrics;
+    if (checkBioMatrixStatus) {
+      List<BiometricType> bioTypes = await auth.getAvailableBiometrics();
+      if (bioTypes.isNotEmpty) {
+        bool isLogin = await auth.authenticate(
+          localizedReason: 'Please Correct privacy Password',
+          options: const AuthenticationOptions(biometricOnly: true),
+        );
+        return isLogin;
+      }
+    }
+    return null;
   }
 }

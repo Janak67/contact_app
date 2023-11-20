@@ -33,6 +33,7 @@ class _HideContactScreenState extends State<HideContactScreen> {
               child: InkWell(
                 onTap: () {
                   providerr!.storeIndex(index);
+                  providerr!.isLock = true;
                   Navigator.pushNamed(context, 'contactInfo',
                       arguments: providerr!.hideContactList[index]);
                 },
@@ -76,7 +77,8 @@ class _HideContactScreenState extends State<HideContactScreen> {
                               "${providerr!.hideContactList[index].name}",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            Text("${providerr!.hideContactList[index].contact}"),
+                            Text(
+                                "${providerr!.hideContactList[index].contact}"),
                           ],
                         ),
                       ],

@@ -46,8 +46,14 @@ class _ContactScreenState extends State<ContactScreen> {
             ),
           ],
           leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'hideContact');
+              onPressed: () async {
+                bool? isLogin = await providerr!.bioMatrix();
+                if (isLogin != null) {
+                  if (isLogin == true) {
+                    providerr!.isPrivate = true;
+                    Navigator.pushNamed(context, 'hideContact');
+                  }
+                }
               },
               icon: const Icon(Icons.remove_red_eye_outlined)),
         ),
@@ -59,6 +65,7 @@ class _ContactScreenState extends State<ContactScreen> {
               child: InkWell(
                 onTap: () {
                   providerr!.storeIndex(index);
+                  providerr!.isLock = false;
                   Navigator.pushNamed(context, 'contactInfo',
                       arguments: providerr!.contactList[index]);
                 },

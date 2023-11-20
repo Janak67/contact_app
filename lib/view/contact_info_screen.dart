@@ -215,7 +215,7 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                           updateWidget(context, c1);
                         },
                         icon: const Icon(Icons.edit,
-                            color: Colors.black, size: 30),
+                            color: Colors.grey, size: 30),
                       ),
                       IconButton(
                           onPressed: () {
@@ -223,14 +223,21 @@ class _ContactInfoScreenState extends State<ContactInfoScreen> {
                             Navigator.pop(context);
                           },
                           icon: const Icon(Icons.delete,
-                              color: Colors.black, size: 30)),
+                              color: Colors.grey, size: 30)),
                       IconButton(
                         onPressed: () {
-                          providerr!.hideContact();
+                          if (providerr!.isLock == true) {
+                            providerr!.unHideContact();
+                          } else {
+                            providerr!.hideContact();
+                          }
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.remove_red_eye,
-                            color: Colors.black, size: 30),
+                        icon: providerr!.isLock
+                            ? const Icon(Icons.visibility_off,
+                                color: Colors.grey, size: 30)
+                            : const Icon(Icons.visibility,
+                                color: Colors.grey, size: 30),
                       ),
                     ],
                   ),
