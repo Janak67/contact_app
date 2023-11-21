@@ -77,6 +77,7 @@ class ContactProvider with ChangeNotifier {
     contactList.removeAt(infoIndex!);
     notifyListeners();
   }
+
   void unHideContact() {
     ContactModel unHiddenContact = hideContactList[infoIndex!];
     contactList.add(unHiddenContact);
