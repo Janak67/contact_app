@@ -73,7 +73,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   height: MediaQuery.of(context).size.height * 0.10,
                   width: MediaQuery.of(context).size.width * 0.10,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: grey,
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

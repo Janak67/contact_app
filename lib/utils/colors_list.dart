@@ -10,3 +10,6 @@ List<Color> backgroundColor = [
   const Color(0xFF64FFDA),
   const Color(0xFF00BCD4),
 ];
+
+
+Color grey = Colors.grey;
